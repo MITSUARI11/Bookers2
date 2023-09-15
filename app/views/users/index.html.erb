@@ -1,10 +1,6 @@
-<h1>Users info</h1>
 
-<%= @user.name %>
-<%= @user.introduction %>
-<%= link_to edit_user_path do %>
-  <i class="fa-solid fa-user-gear"></i>
-<% end %>
+<%= render 'devise/shared/sidemenu', user: @user %>
+
 
 
 
