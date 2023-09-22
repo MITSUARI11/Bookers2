@@ -1,6 +1,21 @@
-<h1>Books#show</h1>
-<p>Find me in app/views/books/show.html.erb</p>
-
 <%= render 'devise/shared/sidemenu', user: @user %>
+
+<h1>Books detail</h1>
+
+<div>
+  <%= link_to user_path(@user.id) do %>
+    <%= image_tag @user.get_profile_image(100, 100) %>
+    <span><%= @user.name %></span>
+  <% end %>
+
+  <%= link_to @book.title, book_path(@book.id) %>
+  <%= @book.body %>
+  
+  <% if @book.user == current_user %>
+    <%= link_to "Edit", edit_book_path(@book.id) %>
+    <%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+  <% end %>
+</div>
+
 
 

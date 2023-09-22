@@ -8,9 +8,10 @@ class BooksController < ApplicationController
   
   def create
     book = Book.new(book_params)
+    book.user_id = current_user.id
     if book.save
       flash[:notice] = "successfully submitted"
-      redirect_to edit_book_path(current_user)
+      redirect_to book_path(book.id)
     else
       flash.now[:aleat] = "submit error"
       render :index
@@ -18,16 +19,33 @@ class BooksController < ApplicationController
   end
 
   def show
+    @book = Book.find(params[:id]) 
+    @user = @book.user
   end
 
   def edit
-    @user = current_user
+    user = User.find(params[:id])
+    unless user.id == current_user.id
+      redirect_to new_user_session_path
+    end
+    @book = Book.find(params[:id])
   end
   
   def update
     book = Book.find(params[:id])
-    book.update(book_params)
-    redirect_to books_path(book.id)
+    if book.update(book_params)
+      flash[:notice] = "Successfully updated"
+      redirect_to books_path
+    else
+      flash.now[:alate] = "update error"
+      render :now
+    end
+  end
+  
+  def destroy
+    book = Book.find(params[:id])
+    book.destroy
+    redirect_to books_path
   end
   
   
