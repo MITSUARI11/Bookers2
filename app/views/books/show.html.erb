@@ -1,6 +1,7 @@
-<%= render 'devise/shared/sidemenu', user: @user %>
+<%= render 'devise/shared/sidemenu', user: @user_id, newbook: @newbook %>
+<%= render 'devise/shared/validation_error', book: @newbook %>
 
-<h1>Books detail</h1>
+<h1>Book detail</h1>
 
 <div>
   <%= link_to user_path(@user.id) do %>

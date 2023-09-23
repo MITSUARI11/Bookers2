@@ -1,6 +1,5 @@
-<%= render 'devise/shared/sidemenu', user: @user %>
-
-
+<%= render 'devise/shared/sidemenu', user: @user_id, newbook: @newbook %>
+<%= render 'devise/shared/validation_error', book: @newbook %>
 
 <h2>Books</h2>
 
