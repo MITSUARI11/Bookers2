@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  
+  
   def index
     @user_id = current_user
     @users = User.all
@@ -19,10 +21,9 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user_id = User.find(params[:id])
+    @user = User.find(params[:id])
     @newbook = Book.new
-    @book = @user_id.books
-    @book_id = Book.find(params[:id])
+    @book = @user.books
   end
 
 
@@ -31,17 +32,16 @@ class UsersController < ApplicationController
     unless @user.id == current_user.id
       redirect_to new_user_session_path
     end
-    @user_id = current_user
   end
   
   def update
-    user = User.find(params[:id])
-    if user.update(user_params)
+    @user = User.find(params[:id])
+    if @user.update(user_params)
       flash[:notice] = "successfully updated"
-      redirect_to user_path(user.id)
+      redirect_to user_path(@user.id)
     else
       flash.now[:aleat] = "update error"
-      render :show
+      render :edit
     end
   end
   
