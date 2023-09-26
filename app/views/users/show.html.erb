@@ -1,16 +1,36 @@
-<%= render 'devise/shared/sidemenu', user: @user, newbook: @newbook %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'devise/shared/sidemenu', user: @user, newbook: @newbook %>
+    </div>
+    <div class="col-md-9">
+      
+      <h2>Books</h2>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Opinion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @book.each do |book| %>
+          <tr>
+            <td>
+              <%= link_to user_path(@user.id) do %>
+              <p><%= image_tag @user.get_profile_image(100, 100) %></p>
+              <% end %>
+            </td>
+            <td><%= link_to book.title, book_path(book.id) %></td>
+            <td><%= book.body %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
 
-<h2>Books</h2>
-
-<div>
-  <% @book.each do |book| %>
-    <%= link_to user_path(@user.id) do %>
-      <p><%= image_tag @user.get_profile_image(100, 100) %></p>
-    <% end %>
-    <p>Title : <%= link_to book.title, book_path(book.id) %></p>
-    <p>Opinion : <%= book.body %></p>
-  <% end %>
+    </div>
+  </div>
 </div>
-
 
 
